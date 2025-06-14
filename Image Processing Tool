@@ -1,0 +1,22 @@
+#include <opencv2/opencv.hpp>
+using namespace cv;
+using namespace std;
+
+int main() {
+    Mat image = imread("sample.jpg");
+    if(image.empty()) {
+        cout << "Image not found!\n";
+        return -1;
+    }
+
+    Mat gray, blurred, edges;
+    cvtColor(image, gray, COLOR_BGR2GRAY);
+    GaussianBlur(gray, blurred, Size(7, 7), 1.5);
+    Canny(blurred, edges, 50, 150);
+
+    imshow("Original", image);
+    imshow("Grayscale", gray);
+    imshow("Edges", edges);
+    waitKey(0);
+    return 0;
+}
